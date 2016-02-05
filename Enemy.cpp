@@ -208,6 +208,7 @@ HRESULT Enemy::Hit(UnitBase* pTarget)
 			move *= 5;
 			position -= move * (1.00 + (DeathCount / 100));
 
+			//“®‚«’Ç‰Á
 			if (zannzou == 1)
 			{
 				if (position.x >= 550)
