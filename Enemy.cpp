@@ -138,7 +138,7 @@ void Enemy::Kill()
 	//初期位置
 	position.x = 0;							//画面の１番左に表示
 	position.y = rand() % 618 + 150;	//ランダムな縦位置に表示
-	action = rand() % 10;
+	action = rand() % 10;				//ランダムに敵を選択
 	zannzou = rand() % 2;
 
 	//敵を生存状態にする
