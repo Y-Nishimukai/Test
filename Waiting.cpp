@@ -1,25 +1,29 @@
 /*===========================================================================================
-概　略：チュートリアルクラスの関数定義
-作成日：01月22日
+概　略：待機クラスの関数定義
+作成日：02月12日
 更新日：
 制作者：Yu Nishimukai
 =============================================================================================*/
 
 //---------------インクルード-----------------------
-#include "Tutorial.h"
+#include "Waiting.h"
 
 
 //――――――――――――――――――――――
 //	コンストラクタ
 //――――――――――――――――――――――
-Tutorial::Tutorial()
+Waiting::Waiting()
 {
 	//プレイヤーの位置の初期化
 	position.x = WINDOW_WIDTH - 192;
 	position.y = WINDOW_HEIGHT - 384;
 
 	attackCount = 0;
+	isWait = false;
 	isCutKeyFlg = FALSE;
+	count3 = false;
+	count2 = false;
+	count1 = false;
 	CutCnt = 1;
 
 	//オーディオクラスの動的作成
@@ -29,13 +33,13 @@ Tutorial::Tutorial()
 //――――――――――――――――――――――
 //	デストラクタ
 //――――――――――――――――――――――
-Tutorial::~Tutorial()
+Waiting::~Waiting()
 {
 	//オーディオクラスの削除
 	SAFE_DELETE(audio);
 }
 
-HRESULT Tutorial::Load()
+HRESULT Waiting::Load()
 {
 	//プレイヤーの画像の読み込み
 	if (FAILED(sprite1.Load("pict\\CHaraNeko2.png")))
@@ -50,12 +54,27 @@ HRESULT Tutorial::Load()
 	}
 
 	//背景画像読み込み
-	if (FAILED(spriteA.Load("pict\\background2.bmp")))
+	if (FAILED(spriteA.Load("pict\\background.bmp")))
 	{
 		return E_FAIL;		//失敗を返す
 	}
 
 	if (FAILED(spriteB.Load("pict\\brock.jpg")))
+	{
+		return E_FAIL;		//失敗を返す
+	}
+
+	if (FAILED(spriteIti.Load("pict\\Count1.png")))
+	{
+		return E_FAIL;		//失敗を返す
+	}
+
+	if (FAILED(spriteNi.Load("pict\\Count2.png")))
+	{
+		return E_FAIL;		//失敗を返す
+	}
+
+	if (FAILED(spriteSan.Load("pict\\Count3.png")))
 	{
 		return E_FAIL;		//失敗を返す
 	}
@@ -80,7 +99,7 @@ HRESULT Tutorial::Load()
 //機能：更新処理
 //引数：なし
 //戻値：成功したか失敗したか
-HRESULT Tutorial::Update()
+HRESULT Waiting::Update()
 {
 	switch (status)
 	{
@@ -96,25 +115,22 @@ HRESULT Tutorial::Update()
 		break;
 	}
 
-	//スペースキーが押されたら
-	if (g_pInput->IsKeyTap(DIK_SPACE))
+	isWait = true;
+	if (isWait == true)
 	{
-		//プレイシーンに移行
-		g_gameScene = SC_WAITING;
+		waiting++;
+		if (waiting >= WAITING)
+		{
+			g_gameScene = SC_PLAY;
+		}
 	}
 
-	//Aボタンが押されたら
-	if (g_pInput->IsPadButtonTap(XINPUT_GAMEPAD_A))
-	{
-		//プレイシーンに移行
-		g_gameScene = SC_WAITING;
-	}
-
+	
 	return S_OK;	//成功を知らせる
 }
 
 
-HRESULT Tutorial::Render()
+HRESULT Waiting::Render()
 {
 	//構造体を作成
 	SpriteData data;
@@ -175,8 +191,50 @@ HRESULT Tutorial::Render()
 		break;
 	}
 
-	
+	if (waiting <= 60)
+	{
+		count3 = true;
+		if (count3 == true)
+		{
+			SpriteData dataSan;
+			dataSan.pos.x = 350;
+			dataSan.pos.y = 150;
+			dataSan.scale = D3DXVECTOR2(2.0f, 2.0f);
 
+			spriteSan.Draw(&dataSan);
+		}
+		count3 = false;
+	}
+
+	if (waiting >= 61 && waiting <= 120)
+	{
+		count2 = true;
+		if (count2 == true)
+		{
+			SpriteData dataNi;
+			dataNi.pos.x = 350;
+			dataNi.pos.y = 150;
+			dataNi.scale = D3DXVECTOR2(2.0f, 2.0f);
+
+			spriteNi.Draw(&dataNi);
+		}
+		count2 = false;
+	}
+
+	if (waiting >= 121)
+	{
+		count1 = true;
+		if (count1 == true)
+		{
+			SpriteData dataIti;
+			dataIti.pos.x = 390;
+			dataIti.pos.y = 150;
+			dataIti.scale = D3DXVECTOR2(2.0f, 2.0f);
+
+			spriteIti.Draw(&dataIti);
+		}
+		count1 = false;
+	}
 
 	return S_OK;	//成功を返す
 }
@@ -184,7 +242,7 @@ HRESULT Tutorial::Render()
 //攻撃処理
 //引数：なし
 //戻値：成功か失敗か
-HRESULT Tutorial::Cut()
+HRESULT Waiting::Cut()
 {
 	//攻撃
 	//ZキーかゲームパッドのAボタンが押されているときの処理
@@ -205,7 +263,7 @@ HRESULT Tutorial::Cut()
 //攻撃状態のときの処理
 //引数：なし
 //戻値：成功か失敗か
-HRESULT Tutorial::Attack()
+HRESULT Waiting::Attack()
 {
 	attackCount++;	//１フレームごとにカウントを＋１する
 

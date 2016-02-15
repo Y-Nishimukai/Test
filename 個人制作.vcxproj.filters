@@ -87,6 +87,12 @@
     <ClInclude Include="Tutorial.h">
       <Filter>ヘッダー ファイル\ユニット</Filter>
     </ClInclude>
+    <ClInclude Include="Waiting.h">
+      <Filter>ヘッダー ファイル\ユニット</Filter>
+    </ClInclude>
+    <ClInclude Include="WaitingScene.h">
+      <Filter>ヘッダー ファイル\シーン</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp">
@@ -142,6 +148,12 @@
     </ClCompile>
     <ClCompile Include="Tutorial.cpp">
       <Filter>ソース ファイル\ユニット</Filter>
+    </ClCompile>
+    <ClCompile Include="Waiting.cpp">
+      <Filter>ソース ファイル\ユニット</Filter>
+    </ClCompile>
+    <ClCompile Include="WaitingScene.cpp">
+      <Filter>ソース ファイル\シーン</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

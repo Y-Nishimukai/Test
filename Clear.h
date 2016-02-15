@@ -14,6 +14,8 @@ class Clear : public UnitBase
 {
 	//スプライトクラスのオブジェクト作成
 	Sprite sprite;
+	Sprite spriteG;
+	Sprite spriteM;
 
 public:
 	Clear();	//コンストラクタ

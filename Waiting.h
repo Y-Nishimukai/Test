@@ -1,6 +1,6 @@
 /*===========================================================================================
-概　略：チュートリアルクラスヘッダー作成
-作成日：01月22日
+概　略：待機クラスヘッダー作成
+作成日：02月12日
 更新日：
 制作者：Yu Nishimukai
 =============================================================================================*/
@@ -11,9 +11,10 @@
 #include "Sprite.h"
 #include "Audio.h"
 
-#define RESURRECTION 5	//復活する時間
+#define RESURRECTION 5
+#define WAITING 180	//復活する時間
 
-class Tutorial : public UnitBase
+class Waiting : public UnitBase
 {
 	//オーディオクラスのオブジェクト作成
 	Audio* audio;
@@ -29,6 +30,12 @@ class Tutorial : public UnitBase
 
 	Sprite spriteB;
 
+	Sprite spriteIti;
+
+	Sprite spriteNi;
+
+	Sprite spriteSan;
+
 	//プレイヤーの状態を定数化
 	enum
 	{
@@ -38,8 +45,13 @@ class Tutorial : public UnitBase
 	int status;				//現在の状態
 
 	int attackCount;			//攻撃してからの時間をカウント
+	int waiting;
 
+	BOOL isWait;
 	BOOL isCutKeyFlg;		//攻撃ボタン押したか
+	BOOL count3;
+	BOOL count2;
+	BOOL count1;
 	int CutCnt;
 
 	HRESULT Cut();			//攻撃処理
@@ -47,8 +59,8 @@ class Tutorial : public UnitBase
 
 
 public:
-	Tutorial();		//コンストラクタ
-	~Tutorial();		//デストラクタ
+	Waiting();		//コンストラクタ
+	~Waiting();		//デストラクタ
 
 	//画像読み込み
 	HRESULT Load();

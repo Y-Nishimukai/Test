@@ -9,6 +9,7 @@
 #include "Game.h"
 #include "TitleScene.h"
 #include "TutorialScene.h"
+#include "WaitingScene.h"
 #include "PlayScene.h"
 #include "ClearScene.h"
 
@@ -27,6 +28,7 @@ Game::Game()
 	//各シーンオブジェクトの生成
 	scene[SC_TITLE] = new TitleScene;		//タイトルシーン
 	scene[SC_TUTORIAL] = new TutorialScene;
+	scene[SC_WAITING] = new WaitingScene;
 	scene[SC_PLAY] = new PlayScene;		//プレイシーン
 	scene[SC_END] = new ClearScene;
 

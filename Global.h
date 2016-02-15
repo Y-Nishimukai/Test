@@ -34,6 +34,7 @@ enum GAME_SCENE
 {
 	SC_TITLE,	//タイトルシーン
 	SC_TUTORIAL,
+	SC_WAITING,
 	SC_PLAY,	//プレイシーン
 	SC_END,	//クリアシーン
 	SC_MAX

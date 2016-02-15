@@ -14,6 +14,9 @@
 //――――――――――――――――――――――
 Clear::Clear()
 {
+	position.x = 0;
+	position.y = -192;
+
 }
 
 //――――――――――――――――――――――
@@ -29,7 +32,17 @@ Clear::~Clear()
 HRESULT Clear::Load()
 {
 	//クリア画像読み込み
-	if (FAILED(sprite.Load("pict\\Gameover.bmp")))
+	if (FAILED(sprite.Load("pict\\background.bmp")))
+	{
+		return E_FAIL;	//失敗を返す
+	}
+
+	if (FAILED(spriteG.Load("pict\\GAMEOVER.png")))
+	{
+		return E_FAIL;	//失敗を返す
+	}
+
+	if (FAILED(spriteM.Load("pict\\model.png")))
 	{
 		return E_FAIL;	//失敗を返す
 	}
@@ -47,6 +60,10 @@ HRESULT Clear::Update()
 	//{
 	//	g_gameScene = SC_TITLE;
 	//}
+	if (position.y <= 200)
+	{
+		position.y++;
+	}
 
 	return S_OK;		//成功を返す
 }
@@ -61,6 +78,15 @@ HRESULT Clear::Render()
 
 	sprite.Draw(&data);	//スプライトクラスの描画処理を呼んで変更したものを反映させる
 
+	SpriteData dataG;
+	dataG.pos.y = position.y;
+
+	spriteG.Draw(&dataG);
+
+	SpriteData dataM;
+	dataM.pos.y = 645;
+	spriteM.Draw(&dataM);
+	
 
 	return S_OK;	//成功を返す
 

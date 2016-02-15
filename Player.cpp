@@ -69,7 +69,7 @@ HRESULT Player::Load()
 	}
 
 	//”š‚Ì‰æ‘œ‚Ì“Ç‚İ‚İ
-	if (FAILED(spriteNum.Load("pict\\number.png")))
+	if (FAILED(spriteNum.Load("pict\\number'.png")))
 	{
 		return E_FAIL;	//¸”s‚ğ•Ô‚·
 	}
@@ -111,7 +111,7 @@ HRESULT Player::Update()
 		//’Êíó‘Ô‚Ì‚Æ‚«
 	case STATUS_NOMAL:
 
-		//ƒVƒ‡ƒbƒg‚ğŒ‚‚Â
+		//UŒ‚‚ğ‚·‚é
 		if (FAILED(Cut()))
 		{
 			return E_FAIL;	//¸”s‚ğ•Ô‚·
@@ -125,18 +125,6 @@ HRESULT Player::Update()
 	{
 		Bgm();	//BgmŠÖ”‚ğŒÄ‚Ño‚·
 	}
-
-	////ˆø”‚ÌŒ^‚ª“G‚¾‚Á‚½‚çˆ—‚ğ‚·‚é
-	//if (typeid(*pTarget) == typeid(Enemy))
-	//{
-	//	Enemy* pEnemy = (Enemy*)pTarget;
-	//	//“G‚ÌˆÊ’uî•ñæ“¾
-	//	BOOL enemyLive = pEnemy->GetLive();
-	//	if (enemyLive == FALSE)
-	//	{
-	//		isCutKeyFlg = FALSE;
-	//	}
-	//}
 
 	return S_OK;		//¬Œ÷‚ğ•Ô‚·
 }
